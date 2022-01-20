@@ -41,8 +41,12 @@ function filterByQuery(query, animalsArray) {
         filteredResults = filteredResults.filter(animal => animal.name === query.name);
     }
     return filteredResults;
-}
-
+};
+//This function creates an object of each animal and finds it by id. 
+function findById(id, animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0]; 
+    return result;
+};
 //adding route to json animals package
 app.get('/api/animals', (req, res) => {
     let results = animals;
@@ -54,8 +58,22 @@ app.get('/api/animals', (req, res) => {
     res.json(results);
 });
 
+//this route will return a single animal because of :id this will pick a unique id
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals);
+    if (result) {
+        res.json(result);
+    } else {
+        //the client enters a number that doesn't exist then it shows undefined. 
+        res.send(404);
+    }
+});
+
+
+
 //call out the port 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
 
+/*IMPORTANT:  */
