@@ -1,7 +1,11 @@
 //start express.js app 
 const express = require('express');
 const PORT = process.env.PORT || 3001;
-var app = express()
+const app = express()
+//accept incoming data, parse incoming string or array data
+app.use(express.urlencoded({ extended: true }));
+//pase incoming JSON data 
+app.use(express.json());
 const { animals } =require('./data/animals.json');
 
 
@@ -69,7 +73,12 @@ app.get('/api/animals/:id', (req, res) => {
     }
 });
 
-
+//get routes that we have created
+app.post('api/animals', (req, res) => {
+    //req body is where our incoming content will be
+    console.log(req.body);
+    res.json(req.body);
+});
 
 //call out the port 
 app.listen(PORT, () => {
