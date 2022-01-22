@@ -74,7 +74,7 @@ app.get('/api/animals/:id', (req, res) => {
 });
 
 //get routes that we have created
-app.post('api/animals', (req, res) => {
+app.post('/api/animals', (req, res) => {
     //req body is where our incoming content will be
     console.log(req.body);
     res.json(req.body);
